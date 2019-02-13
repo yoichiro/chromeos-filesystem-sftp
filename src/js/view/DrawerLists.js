@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton'
-import List from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List';
 import FavoritesItem from './FavoritesItem';
-import ChevronLeftIcon from 'material-ui-icons/ChevronRight';
-import Divider from 'material-ui/Divider';
-import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import Switch from 'material-ui/Switch';
+import ChevronLeftIcon from '@material-ui/icons/ChevronRight';
+import Divider from '@material-ui/core/Divider';
+import { ListItem, ListItemText, ListItemSecondaryAction, ListSubheader } from '@material-ui/core/List';
+import Switch from '@material-ui/core/Switch';
 
 const drawerWidth = 240;
 
@@ -49,7 +48,7 @@ class FavoritesList extends React.Component {
     // Generate list items, based on the items within
     // the favorites array in the state of the main app
     const items = favorites.map((favorite) =>
-      <FavoritesItem 
+      <FavoritesItem
         key={favorite.key}
         favorite={favorite}
         selected={selectedFavorite===favorite.key}
@@ -63,7 +62,7 @@ class FavoritesList extends React.Component {
         <ListItemText primary={chrome.i18n.getMessage("noFavorites")} />
       </ListItem>
     );
-    
+
     return (
       <Drawer
         variant="persistent"
@@ -88,7 +87,7 @@ class FavoritesList extends React.Component {
               subheader={<ListSubheader component="div">{chrome.i18n.getMessage("favorites")}</ListSubheader>}>
               {items.length > 0 ? items : noItems}
             </List>
-            <List 
+            <List
               component="nav"
               subheader={<ListSubheader component="div">{chrome.i18n.getMessage("settings")}</ListSubheader>}>
               <ListItem dense>

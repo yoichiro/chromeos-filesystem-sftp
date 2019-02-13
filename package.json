@@ -3,7 +3,7 @@
   "description": "ChromeOS app to access a SFTP server directly from the Files app",
   "version": "1.8.0",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config webpack.config.js --progress --colors"
+    "build": "node_modules/.bin/webpack --config webpack.config.js --mode development --progress --colors"
   },
   "author": {
     "name": "Yoichiro Tanaka",
@@ -34,8 +34,8 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "material-ui": "^1.0.0-beta.34",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-mark-ii": "^2.2.0"
@@ -46,13 +46,14 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "eslint": "^4.18.2",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-react": "^7.7.0",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.13",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
     "webpack-concat-plugin": "^3.0.0-beta.0"
   },
   "engines": {

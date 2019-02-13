@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import TextField from 'material-ui/TextField';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
-import IconButton from 'material-ui/IconButton';
-import ActiveIcon from 'material-ui-icons/CheckBox';
-import InactiveIcon from 'material-ui-icons/CheckBoxOutlineBlank';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
+import { FormControl, FormHelperText } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ActiveIcon from '@material-ui/icons/CheckBox';
+import InactiveIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const patterns = {
   uriChars: /[^a-z0-9{}|\\^[\]`;/?:@&=+$,%-._~]/i,
@@ -34,7 +34,7 @@ class ServerForm extends React.Component {
   };
 
   handleOnKeyPressServerName = event => {
-    if(patterns.uriChars.test(event.key)) 
+    if(patterns.uriChars.test(event.key))
       event.preventDefault();
   };
 
@@ -91,7 +91,7 @@ class ServerForm extends React.Component {
               id="mountPath"
               value={mountPath}
               onChange={this.handleChange('mountPath')}
-              startAdornment={serverName && serverName.length > 0 ? 
+              startAdornment={serverName && serverName.length > 0 ?
                 <InputAdornment classes={{root:classes.adornment}} position="start">
                 {serverName.replace(/\/$/, "")+":" + serverPort + "/"}</InputAdornment> : null}
             />
@@ -111,7 +111,7 @@ class ServerForm extends React.Component {
               startAdornment={
               <InputAdornment position="start">
                 <IconButton
-                  classes={{root:classes.checkboxIcon}} 
+                  classes={{root:classes.checkboxIcon}}
                   onClick={this.handleCustomDisplayName}
                   onMouseDown={this.handleMouseDownDisplayName}
                 >

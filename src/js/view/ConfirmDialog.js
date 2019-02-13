@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import Mark from 'react-mark-ii';
 
 import Dialog, {
@@ -8,7 +8,7 @@ import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/Dialog';
+} from '@material-ui/core/Dialog';
 
 const styles = theme => ({
   underline: {
@@ -25,7 +25,7 @@ const styles = theme => ({
     color: theme.palette.text.primary,
     textTransform: 'capitalize',
     verticalAlign: 'top'
-  }, 
+  },
   chunk: {
     width: '1.8em',
     display: 'inline-block'
@@ -54,7 +54,7 @@ class ConfirmDialog extends React.Component {
             <Mark options={options} wrap="span">
             {
               // Add additional mark-up to the key of the fingerprint
-              // e.g. transform b12d3367ce354d5ff3a8cdc0c4488612 to a 
+              // e.g. transform b12d3367ce354d5ff3a8cdc0c4488612 to a
               // more readable chunked key: b1 2d d3 36 7c ....
               item.key === "fingerprint" ? chopStringInPairs(item.value) : item.value
             }

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import BookmarkIcon from 'material-ui-icons/BookmarkBorder';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import BookmarkIcon from '@material-ui/icons/BookmarkBorder';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ServerForm from './ServerForm';
 import AuthForm from './AuthForm';
 import ConfirmForm from './ConfirmForm';
@@ -121,7 +121,7 @@ class AppContent extends React.Component {
     username:'',        // credentials of mount connection
     password: '',       // credentials of mount connection
     privateKey: '',     // credentials of mount connection
-    showPassword: false,// whether or not to visualize password 
+    showPassword: false,// whether or not to visualize password
     keepCredentials: false, // keep credentials locally stored
 
     favorites: [],      // list of all local stored mount favorites
@@ -179,7 +179,7 @@ class AppContent extends React.Component {
     // Validate input characters for serverName and mountPath forms
     if(name === 'serverName') {
       value = value.replace(patterns.uriChars,"");
-      
+
       // has user added a username in this field?
       if(value[value.length-1] === "@") {
         let res = /^([a-z0-9]+)@/i.exec(value);
@@ -198,7 +198,7 @@ class AppContent extends React.Component {
     }
 
     // Update default displayName, if custom is disabled and any name has changed
-    if(!this.state.customDisplayName && 
+    if(!this.state.customDisplayName &&
       (['serverName', 'serverPort', 'username', 'type'].includes(name)) ) {
       this.setDefaultDisplayName({[name] : value});
     }
@@ -234,7 +234,7 @@ class AppContent extends React.Component {
 
   /**
    * handleBlur validates serverPort and displayName as soon the user as
-   * selected outside these input fields. Portnumber may not be negative, 
+   * selected outside these input fields. Portnumber may not be negative,
    * may not be empty, and my not be not-a-number. The (custom) display name may
    * not be empty.
    * @param  {String} name  Name of the field, e.g. 'serverPort' or 'displayName'
@@ -248,7 +248,7 @@ class AppContent extends React.Component {
         const newValue = value.replace(res[0], "");
         const serverNameWarning = patterns.nameChars.test(newValue);
         this.setState({
-          serverName: value.replace(res[0], ""), 
+          serverName: value.replace(res[0], ""),
           serverPort: res[1],
           serverNameWarning : serverNameWarning
         });
@@ -301,8 +301,8 @@ class AppContent extends React.Component {
   };
 
   /**
-   * setDefaultDisplayName sets the display name to a newly created 
-   * default display name, based on the latest (not yet updated) states, 
+   * setDefaultDisplayName sets the display name to a newly created
+   * default display name, based on the latest (not yet updated) states,
    * gives as the first argument.
    * @param  {Object} opts List of (not yet updated) states
    */
@@ -313,7 +313,7 @@ class AppContent extends React.Component {
 
   /**
    * createDefaultDisplayName creates a default display name. The
-   * display name is the reference to the SFTP mount, as shown in 
+   * display name is the reference to the SFTP mount, as shown in
    * ChromeOS Files. The markup of the default display name is
    * '<servername>:<serverport> (<username>)'
    * @param  {Object} opts List of (not yet updated) states
@@ -336,8 +336,8 @@ class AppContent extends React.Component {
 
   /**
    * onMountButtonClick is invoked by the Mount-button, and creates
-   * a mount-request which will be send to 'background.js', which 
-   * on his turn triggers SFTP_FS, SFTP_CLIENT...  
+   * a mount-request which will be send to 'background.js', which
+   * on his turn triggers SFTP_FS, SFTP_CLIENT...
    */
   onMountButtonClick = () => {
 
@@ -356,7 +356,7 @@ class AppContent extends React.Component {
         mountPath: "/" + this.state.mountPath,
         displayName: this.state.displayName
     };
-    
+
     // Message passing - send the request to 'background.js'
     chrome.runtime.sendMessage(request, this.handleInitialMountResponse);
   };
@@ -373,11 +373,11 @@ class AppContent extends React.Component {
     this.setState({responseCache: response}, () => {
 
       clearTimeout(timer);
-      
+
       // Server responses the request ...
       if (response) {
 
-        // ... by returning the server's fingerprint. 
+        // ... by returning the server's fingerprint.
         // Time to verify its authenticity
         if(response.type === "confirmFingerprint") {
 
@@ -401,7 +401,7 @@ class AppContent extends React.Component {
             if(prevFingerprint) {
               const equalAlgorithm = prevFingerprint.algorithm && prevFingerprint.algorithm === response.algorithm;
               const equalValue = prevFingerprint.value && prevFingerprint.value === response.fingerprint;
-              
+
               // Yes, compare with the current received one
               if(equalAlgorithm && equalValue) {
                 // Equal! Just connect
@@ -433,14 +433,14 @@ class AppContent extends React.Component {
             // if(response.error) message += " " + chrome.i18n.getMessage(response.error);
 
             this.setState({
-              isTryingToMount: false, 
+              isTryingToMount: false,
               statusMessage: message,
               showStatus: true,
             });
         }
       } else {
           this.setState({
-            isTryingToMount: false, 
+            isTryingToMount: false,
             statusMessage: chrome.i18n.getMessage("mountFailInternalError"),
             showStatus: true,
           });
@@ -471,7 +471,7 @@ class AppContent extends React.Component {
   };
 
   /**
-   * handleDeclineFingerprint is invoked by the user, when the user declines the 
+   * handleDeclineFingerprint is invoked by the user, when the user declines the
    * fingerprint of the server. In this case, the dialog is hided and the initiation
    * of the connection is aborted.
    */
@@ -545,7 +545,7 @@ class AppContent extends React.Component {
   /**
    * SAVE AND LOAD DATA FROM CHROME.STORAGE.LOCAL ------------------------------------
    */
-  
+
   /**
    * loadKeepCredentialSetting loads the setting whether the user wants to
    * keep credentials are not
@@ -559,7 +559,7 @@ class AppContent extends React.Component {
 
   /**
    * loadTrustedFingerprints loads all locally stored fingerprints, which are trusted.
-   * When the user connected to a specific server, and its fingerprint is confirmed at 
+   * When the user connected to a specific server, and its fingerprint is confirmed at
    * that time, this fingerprint will be saved. The fingerprints are stored as an
    * Object within the Chrome App environment
    * @param  {Function} callback Returns an object with fingerprints
@@ -572,9 +572,9 @@ class AppContent extends React.Component {
   };
 
   /**
-   * getLocalStoredTrustedFingerprint gets a specific fingerprint for a specific 
+   * getLocalStoredTrustedFingerprint gets a specific fingerprint for a specific
    * server and of serverport combination. The function derives all fingerprints with
-   * help the function 'loadTrustedFingerprints' 
+   * help the function 'loadTrustedFingerprints'
    * @param  {String}   serverName Name of the server
    * @param  {String}   serverPort Port number of server
    * @param  {Function} callback   Fingerprint of server (String)
@@ -606,7 +606,7 @@ class AppContent extends React.Component {
 
   /**
    * loadLocalStoredMountFavorites loads all locally stored connection favorites.
-   * These favorites are stored in an Array, named 'mountFavorites', within the 
+   * These favorites are stored in an Array, named 'mountFavorites', within the
    * Chrome App environment. The functions loads the Array within the favorites
    * state of the app.
    */
@@ -619,14 +619,14 @@ class AppContent extends React.Component {
 
   /**
    * storeAsFavorite saves the current completed form fields as a 'favorite'
-   * within the favorites-state-array. These favorites can be shown and 
+   * within the favorites-state-array. These favorites can be shown and
    * requested from the drawer
    */
   storeAsFavorite = () => {
     const { type, username, password, privateKey, keepCredentials } = this.state;
 
     // Create new object from a set of state properties
-    const favorite = (({ serverName, serverPort, mountPath, displayName }) => 
+    const favorite = (({ serverName, serverPort, mountPath, displayName }) =>
                       ({ serverName, serverPort, mountPath, displayName }))(this.state);
 
     // Create default values for all authentication methods
@@ -647,7 +647,7 @@ class AppContent extends React.Component {
     const favorites = [...this.state.favorites, favorite];
 
     // Update local storage with new list of favorites, and update
-    // the UI by updating state information 
+    // the UI by updating state information
     chrome.storage.local.set({mountFavorites: favorites}, () => {
       this.setState({
         favorites: favorites,
@@ -656,11 +656,11 @@ class AppContent extends React.Component {
       });
     });
 
-    
+
   };
 
   /**
-   * createKey generates a unique identifier. The function is used to 
+   * createKey generates a unique identifier. The function is used to
    * add a unique id for each saved favorite.
    * See: https://gist.github.com/gordonbrander/2230317
    * @param  {String} ref Reference for which the key is created
@@ -673,14 +673,14 @@ class AppContent extends React.Component {
 
 
   /**
-   * showFavorite shows the data of the favorite mount in the 
+   * showFavorite shows the data of the favorite mount in the
    * according input fields
    * @param  {Object} favorite Favorite-object with all required data
    */
   showFavorite = (favorite) => {
     // Verify whether credentials are stored
-    let hasCredentials = false;  
-    if( favorite.type === "password" && 
+    let hasCredentials = false;
+    if( favorite.type === "password" &&
       favorite.username.length > 0 && favorite.password.length > 0) {
       hasCredentials = true;
     } else if (favorite.type === "publicKey" && favorite.privateKey.length > 0 ) {
@@ -720,7 +720,7 @@ class AppContent extends React.Component {
 
     if(this.state.selectedFavorite === favorite.key) {
       this.setState({selectedFavorite: "", isReadyToMakeFavorite: true});
-    } 
+    }
 
     if(itemIndex > -1) {
       const newFavoritesList = this.state.favorites.filter((_, i) => i !== itemIndex);
@@ -733,7 +733,7 @@ class AppContent extends React.Component {
   /**
    * MISCELLANEOUS EVENTS ------------------------------------------------
    */
-  
+
   /**
    * onToggleDrawer updates the state to open or close the drawer (the menu with
    * favorites). The function is invoked by a UI-button
@@ -741,7 +741,7 @@ class AppContent extends React.Component {
   onToggleDrawer = () => {
     this.setState({ open: !this.state.open });
   };
-  
+
   /**
    * onToggleCustomDisplayName turns the use of a custom display name on
    * or off
@@ -751,7 +751,7 @@ class AppContent extends React.Component {
     const newToggleState = toggle || !this.state.customDisplayName;
     if(this.state.selectedFavorite.length > 0) this.setState({selectedFavorite: ""});
     this.setState({customDisplayName: newToggleState});
-    
+
     if(!newToggleState) this.setDefaultDisplayName(newToggleState);
   };
 
@@ -774,7 +774,7 @@ class AppContent extends React.Component {
   };
 
   /**
-   * onRemoveFavorite removes the saved favorite share for which the function 
+   * onRemoveFavorite removes the saved favorite share for which the function
    * is invoked (a list item in the drawer)
    * @param  {Object} favorite Favorite-object with all required data
    */
@@ -807,7 +807,7 @@ class AppContent extends React.Component {
       if(favoritesWithoutCreds) newState.favorites = favoritesWithoutCreds;
       this.setState(newState);
     });
-    
+
   };
 
   /**
@@ -816,7 +816,7 @@ class AppContent extends React.Component {
    */
   onShowStatus = message => {
     this.setState({
-      isTryingToMount: false, 
+      isTryingToMount: false,
       statusMessage: message,
       showStatus: true,
     });
@@ -853,10 +853,10 @@ class AppContent extends React.Component {
   // Render function of the AppContent component
   render() {
     const { classes } = this.props;
-    const { open, 
+    const { open,
       serverName, serverPort, mountPath, displayName, serverNameWarning,
       type, username, password, privateKey, customDisplayName,
-      favorites, isReadyToMakeFavorite, selectedFavorite, 
+      favorites, isReadyToMakeFavorite, selectedFavorite,
       keepCredentials,
       isReadyToMount, isTryingToMount,
       showStatus, statusMessage } = this.state;
@@ -883,12 +883,12 @@ class AppContent extends React.Component {
           </Toolbar>
         </AppBar>
 
-        <form 
-          id="form" 
-          className={classNames(classes.content, { [classes.contentShift]: open })} 
+        <form
+          id="form"
+          className={classNames(classes.content, { [classes.contentShift]: open })}
           onSubmit={this.onMountButtonClick}>
           <section id="form-server" className={classes.contentItem}>
-            <ServerForm 
+            <ServerForm
               serverName={serverName}
               serverNameWarning={serverNameWarning}
               serverPort={serverPort}
@@ -942,12 +942,12 @@ class AppContent extends React.Component {
           show={showStatus}
           onClose={this.onCloseStatus}
         />
-        
-        <ConfirmDialog 
+
+        <ConfirmDialog
           title={this.state.dialogTitle}
           message={this.state.dialogMessage}
           details={this.state.dialogDetails}
-          show={this.state.showDialog} 
+          show={this.state.showDialog}
           onDecline={this.handleDeclineFingerprint}
           onConfirm={this.handleConfirmFingerprint}
         />

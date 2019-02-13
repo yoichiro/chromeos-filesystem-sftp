@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
-import { CircularProgress } from 'material-ui/Progress';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
   wrapper: {
@@ -30,8 +30,8 @@ class ConfirmForm extends React.Component {
     return (
       <Grid container classes={classes.shade} justify="flex-end" spacing={spacing}>
         <Grid item>
-          <Button 
-            size="small" 
+          <Button
+            size="small"
             disabled={!canMakeFavorite}
             onClick={this.props.onAddFavorite}>
             {icon}
@@ -40,11 +40,11 @@ class ConfirmForm extends React.Component {
         </Grid>
         <Grid item>
           <div className={classes.wrapper}>
-            <Button 
+            <Button
               buttonRef={refMount}
-              variant="raised" 
-              size="large" 
-              color="primary" 
+              variant="raised"
+              size="large"
+              color="primary"
               disabled={!canMount || isTryingToMount}
               type="submit"
               onClick={this.props.onMount}>

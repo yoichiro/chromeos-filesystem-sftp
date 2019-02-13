@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton'
-import ClearIcon from 'material-ui-icons/Clear';
-import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles';
+import IconButton from '@material-ui/core/IconButton'
+import ClearIcon from '@material-ui/icons/Clear';
+import { ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core/List';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   frame: {
@@ -27,7 +27,7 @@ class FavoritesItem extends React.Component {
             onShowFavorite, onRemoveFavorite } = this.props;
 
     //
-    const mountInfo = splitMountPath(favorite);    
+    const mountInfo = splitMountPath(favorite);
     const descriptor = (
       <span className={classes.frame}>
         <span className={classes.ellipsis}>{mountInfo[0]}</span>
@@ -36,7 +36,7 @@ class FavoritesItem extends React.Component {
     );
 
     return (
-      <ListItem 
+      <ListItem
         className={selected ? classes.selected : null}
         button dense
         onClick={() => onShowFavorite(favorite)}>
@@ -45,7 +45,7 @@ class FavoritesItem extends React.Component {
           secondary={descriptor}
           />
           <ListItemSecondaryAction>
-            <IconButton 
+            <IconButton
               onClick={() => onRemoveFavorite(favorite)}
               aria-label="Remove">
               <ClearIcon />
